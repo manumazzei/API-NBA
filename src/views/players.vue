@@ -7,6 +7,7 @@ export default {
       loading: false,
       next: null,
       previous: null,
+      searchWord: "",
     };
   },
   methods: {
@@ -22,14 +23,35 @@ export default {
         });
     },
     handleNext() {
-      this.getPeople(
-        `https://www.balldontlie.io/api/v1/players?page=${this.next}`
-      );
+      if (this.searchWord == "") {
+        this.getPeople(
+          `https://www.balldontlie.io/api/v1/players?page=${this.next}`
+        );
+      } else {
+        this.getPeople(
+          `https://www.balldontlie.io/api/v1/players?page=${this.next}&search=${this.searchWord}`
+        );
+      }
     },
     handlePrevious() {
+      if (this.searchWord == "") {
+        this.getPeople(
+          `https://www.balldontlie.io/api/v1/players?page=${this.previous}`
+        );
+      } else {
+        this.getPeople(
+          `https://www.balldontlie.io/api/v1/players?page=${this.previous}&search=${this.searchWord}`
+        );
+      }
+    },
+    searchPlayers() {
       this.getPeople(
-        `https://www.balldontlie.io/api/v1/players?page=${this.previous}`
+        `https://www.balldontlie.io/api/v1/players?search=${this.searchWord}`
       );
+    },
+    clearSearch() {
+      this.searchWord = "";
+      this.getPeople(`https://www.balldontlie.io/api/v1/players`);
     },
   },
   mounted() {
@@ -44,6 +66,13 @@ export default {
       <iframe src="https://embed.lottiefiles.com/animation/4414"></iframe>
     </h3>
     <div class="div.tabela">
+      <input
+        type="search"
+        v-model="searchWord"
+        placeholder="search by last name"
+      />
+      <button @click="searchPlayers()">find</button>
+      <button @click="clearSearch()">clear</button>
       <table v-show="!loading">
         <tr>
           <th width="30%">First Name</th>
@@ -57,7 +86,14 @@ export default {
           </td>
           <td>{{ player.last_name }}</td>
           <td>{{ player.team.name }}</td>
-          <td></td>
+          <td>
+            {{}}
+            <RouterLink :to="`/player/${player.id}`">
+              <span class="material-symbols-sharp">
+                visibility
+              </span></RouterLink
+            >
+          </td>
         </tr>
       </table>
     </div>
