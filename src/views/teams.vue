@@ -3,6 +3,9 @@
     data(){
       return {
           teams: {},
+          next: null,
+          previous: null,
+          loading: false,
       };
     },
     methods:{
@@ -12,7 +15,15 @@
           .then((data) => {
             const {name, full_name, division} = data;
             this.teams = data.data
-          })
+            this.next = data.meta.next_page;
+            this.previous = data.meta.previous;
+          });
+      },
+      handlePrevious() {
+        this.getTeams(`https://www.balldontlie.io/api/v1/teams?page=${this.previous}`);
+      },
+      handleNext() {
+        this.getTeams(`https://www.balldontlie.io/api/v1/teams?page=${this.next}`);
       }
     },
     computed:{
