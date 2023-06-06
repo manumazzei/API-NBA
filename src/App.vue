@@ -5,7 +5,6 @@ import Players from "./views/players.vue";
 </script>
 
 <template>
-  saasdasdasdsassasd
   <RouterLink to="/Teams">Times</RouterLink>
   <RouterLink to="/Players">Jogadores</RouterLink>
   <RouterView />
