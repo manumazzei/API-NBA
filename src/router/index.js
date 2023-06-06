@@ -25,7 +25,7 @@ const router = createRouter({
     },
     {
       path: "/player/:id",
-      name: "playerDetails",
+      name: "playerDetail",
       component: PlayerView,
     },
     {
