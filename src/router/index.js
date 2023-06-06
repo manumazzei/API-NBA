@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Player from "../views/players.vue";
 import Teams from "../views/teams.vue";
 import Home from "../views/home.vue";
-import PlayerView from "../views/playersDetail.vue";
+import PlayerView from "../views/playerDetail.vue";
 import TeamView from "../views/teamDetail.vue";
 
 const router = createRouter({
