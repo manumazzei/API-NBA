@@ -6,6 +6,7 @@
           next: null,
           previous: null,
           loading: false,
+          searchWord: ""
       };
     },
     methods:{
@@ -24,10 +25,9 @@
       },
       handleNext() {
         this.getTeams(`https://www.balldontlie.io/api/v1/teams?page=${this.next}`);
-      }
+      },
     },
     computed:{
-
     },
     mounted(){
       this.getTeams(`https://www.balldontlie.io/api/v1/teams`);
@@ -46,11 +46,13 @@
           <th width="30%">Time</th>
           <th width="30%">Divisão</th>
           <th width="30%">Conferência</th>
+          <th width="30%">Detail</th>
         </tr>
         <tr v-for="team in teams" :key="team.full_name">
           <td>{{ team.full_name }}</td>
           <td>{{ team.division }}</td>
           <td>{{ team.conference }}</td>
+          <td>  <RouterLink :to="`/team/${team.id}`">{{ team.id }}</RouterLink></td>
         </tr>
       </table>
     </div>
