@@ -50,27 +50,99 @@ export default {
 
 <template>
   <main>
-    <div>
-      <table>
-        <tr>
-          <th width="30%">Data</th>
-          <th width="30%">Time da casa</th>
-          <th width="30%">Pontos do time da casa</th>
-          <th width="30%">Time visitante</th>
-          <th width="30%">Pontos do time visitante</th>
-          <th width="30%">Etapa</th>
-        </tr>
-        <tr v-for="game in parsedGames" :key="game.games">
-          <td>{{ game.date}}</td>
-          <td>{{ game.home_team.abbreviation }}</td>
-          <td>{{ game.home_team_score }}</td>
-          <td>{{ game.visitor_team.abbreviation }}</td>
-          <td>{{ game.visitor_team_score}}</td>
-          <td>{{ game.status}}</td>
-        </tr>
-      </table>
+    <h2>LAST MATCHUPS</h2>
+    <div class="tabel">
+     
+
+      <div v-for="game in parsedGames" :key="game.games">
+        <div class="cardgames">
+            <div class="house">
+                  <div class="view">Logo home
+                    <div class="name">{{ game.home_team.abbreviation }}</div>
+                  </div>
+                  
+                  <div class="points">{{ game.home_team_score }}</div>
+            </div>
+            <div class="status">{{ game.status}}</div>
+            <div class="visitor">
+                  <div class="points">{{ game.visitor_team_score}}</div>
+
+              <div class="view">Logo visi
+              <div class="name">{{ game.visitor_team.abbreviation }}</div>
+              </div>
+            </div>
+       </div>
+
+      </div>
     </div>
   </main>
 </template>
 
-<style></style>
+<style scoped>
+h2 {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background: black;
+  color: whitesmoke;
+  width: 1200px;
+  margin-left: 320px;
+  border-radius: 30px;
+  height: 40px;
+}
+.cardgames{
+  display: flex;
+  align-items: center;
+  margin: 2rem;
+  background: whitesmoke;
+  box-shadow: inset 0 0 1em gray, 0 0 1em gray;
+  border-radius: 3px;
+  width: 300px;
+  height: 200px;
+}
+
+.tabel{
+  text-align: center;
+  width: 1200px;
+  height: 540px;
+  margin-left: 320px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+.house{
+  display: flex;
+  width: 116px;
+  height: 200px;
+}
+.status{
+  display: block;
+  width: 80px;
+  height: 200px;
+  text-align: center;
+  padding-top: 10rem;
+  font-family: 'Bebas Neue', sans-serif;
+}
+.visitor{
+  display: flex;
+  width: 116px;
+  height: 200px;
+}
+.view{
+  width: 60px;
+  padding-top: 4rem;
+}
+
+.name{
+  padding-top: 1rem;
+  text-align: center;
+}
+.points{
+  padding-top: 5rem;
+  width: 50px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+}
+</style>
