@@ -1,44 +1,46 @@
 <script>
-  export default{
-    data(){
-      return {
-          teams: {},
-          next: null,
-          previous: null,
-          loading: false,
-          searchWord: ""
-      };
+export default {
+  data() {
+    return {
+      teams: {},
+      next: null,
+      previous: null,
+      loading: false,
+      searchWord: "",
+    };
+  },
+  methods: {
+    getTeams(url) {
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          const { name, full_name, division } = data;
+          this.teams = data.data;
+          this.next = data.meta.next_page;
+          this.previous = data.meta.previous;
+          console.log(data);
+        });
     },
-    methods:{
-      getTeams(url){
-          fetch(url)
-          .then((res) => res.json())
-          .then((data) => {
-            const {name, full_name, division} = data;
-            this.teams = data.data
-            this.next = data.meta.next_page;
-            this.previous = data.meta.previous;
-          });
-      },
-      handlePrevious() {
-        this.getTeams(`https://www.balldontlie.io/api/v1/teams?page=${this.previous}`);
-      },
-      handleNext() {
-        this.getTeams(`https://www.balldontlie.io/api/v1/teams?page=${this.next}`);
-      },
+    handlePrevious() {
+      this.getTeams(
+        `https://www.balldontlie.io/api/v1/teams?page=${this.previous}`
+      );
     },
-    computed:{
+    handleNext() {
+      this.getTeams(
+        `https://www.balldontlie.io/api/v1/teams?page=${this.next}`
+      );
     },
-    mounted(){
-      this.getTeams(`https://www.balldontlie.io/api/v1/teams`);
-    }
-  }
-
+  },
+  computed: {},
+  mounted() {
+    this.getTeams(`https://www.balldontlie.io/api/v1/teams`);
+  },
+};
 </script>
 
-
 <template>
-   <main>
+  <main>
     <h3 v-show="loading">carregando</h3>
     <div class="div.tabela">
       <table v-show="!loading">
@@ -52,7 +54,9 @@
           <td>{{ team.full_name }}</td>
           <td>{{ team.division }}</td>
           <td>{{ team.conference }}</td>
-          <td>  <RouterLink :to="`/team/${team.id}`">{{ team.id }}</RouterLink></td>
+          <td>
+            <RouterLink :to="`/team/${team.id}`">{{ team.id }}</RouterLink>
+          </td>
         </tr>
       </table>
     </div>

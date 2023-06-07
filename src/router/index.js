@@ -4,6 +4,8 @@ import Teams from "../views/teams.vue";
 import Home from "../views/home.vue";
 import PlayerView from "../views/playerDetail.vue";
 import TeamView from "../views/teamDetail.vue";
+import GameView from "../views/games.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,11 @@ const router = createRouter({
       path: "/team/:id",
       name: "teamDetails",
       component: TeamView,
+    },
+    {
+      path: "/games",
+      name: "games",
+      component: GameView,
     },
   ],
 });
