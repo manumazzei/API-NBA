@@ -9,5 +9,6 @@ import TeamView from "./views/teamDetail.vue";
 <template>
   <RouterLink to="/Teams">Times</RouterLink>
   <RouterLink to="/Players">Jogadores</RouterLink>
+  <RouterLink to="/games">Jogos</RouterLink>
   <RouterView />
 </template>
