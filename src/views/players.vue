@@ -1,5 +1,6 @@
 <script>
 import { RouterLink } from "vue-router";
+import nophoto from "../assets/players/nophoto.png";
 export default {
   data() {
     return {
@@ -53,7 +54,37 @@ export default {
       this.searchWord = "";
       this.getPeople(`https://www.balldontlie.io/api/v1/players`);
     },
+    replaceByDefault(e) {
+      e.target.src = nophoto;
+    },
+    getImagePath(id) {
+      return `../src/assets/players/${id}.png`;
+    },
+    fileExists(filename) {
+      console.log(filename);
+      // Cria um novo objeto de requisição
+      var http = new XMLHttpRequest();
+
+      // Define o método e a URL da requisição
+      http.open("HEAD", filename, false);
+
+      // Envia a requisição
+      http.send();
+
+      // Verifica o status da resposta
+      console.log(http.status);
+      if (http.status === 404) {
+        filename = nophoto;
+        http = new XMLHttpRequest();
+        http.open("HEAD", filename, false);
+        http.send();
+
+        return http.status !== 404;
+      }
+      return http.status !== 404;
+    },
   },
+
   mounted() {
     this.getPeople("https://www.balldontlie.io/api/v1/players");
   },
@@ -62,44 +93,55 @@ export default {
 
 <template>
   <main>
-    <h3 v-show="loading">
-      <iframe src="https://embed.lottiefiles.com/animation/4414"></iframe>
-    </h3>
-    <div class="div.tabela">
-      <input
-        type="search"
-        v-model="searchWord"
-        placeholder="search by last name"
-      />
-      <button @click="searchPlayers()">find</button>
-      <button @click="clearSearch()">clear</button>
-      <table v-show="!loading">
-        <tr>
-          <th width="30%">First Name</th>
-          <th width="30%">Last Name</th>
-          <th width="30%">Team</th>
-          <th width="30%">-</th>
-        </tr>
-        <tr v-for="player in people" :key="player.name">
-          <td>
-            {{ player.first_name }}
-          </td>
-          <td>{{ player.last_name }}</td>
-          <td>{{ player.team.name }}</td>
-          <td>
-            {{}}
-            <RouterLink :to="`/player/${player.id}`">
-              <span class="material-symbols-sharp">
-                visibility
-              </span></RouterLink
-            >
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div id="button-Container">
-      <button @click="handlePrevious">previous</button>
-      <button @click="handleNext">next</button>
+    <div class="divGeral1">
+      <h3 v-show="loading">
+        <iframe src="https://embed.lottiefiles.com/animation/4414"></iframe>
+      </h3>
+      <div class="divSearch">
+        <input
+          type="search"
+          v-model="searchWord"
+          placeholder="search by last name"
+          class="inputSearch"
+        />
+        <span class="material-symbols-sharp" @click="searchPlayers()">
+          search
+        </span>
+        <span class="material-symbols-sharp" @click="clearSearch()">
+          restart_alt
+        </span>
+      </div>
+      <div class="divNav">
+        <div class="divNavTitulo">
+          <p class="pTituloItem">Players</p>
+        </div>
+        <div class="divNavBottoes">
+          <span class="material-symbols-sharp" @click="handlePrevious">
+            arrow_circle_left
+          </span>
+          <span class="material-symbols-sharp" @click="handleNext">
+            arrow_circle_right
+          </span>
+        </div>
+      </div>
+      <div class="divShoItens">
+        <div class="divCard" v-for="player in people" :key="player.name">
+          <div class="divCardFoto">
+            <img
+              v-if="fileExists(getImagePath(player.id))"
+              :src="getImagePath(player.id)"
+              alt=""
+              width="65"
+              @error="replaceByDefault"
+            />
+          </div>
+          <RouterLink :to="`/player/${player.id}`">
+            {{ player.first_name }} {{ player.last_name }}
+            {{ player.team.name }}
+            {{ player.id }}
+          </RouterLink>
+        </div>
+      </div>
     </div>
   </main>
 </template>

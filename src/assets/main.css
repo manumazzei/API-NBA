@@ -129,3 +129,160 @@ body {
 .btnAcessoCabecalho:hover {
   color: silver;
 }
+
+.divGeral1 {
+  align-items: center;
+  justify-content: center;
+  width: 67vw;
+  height: 70vh;
+  margin-left: 15vw;
+  border: 0px solid black;
+}
+
+.divSearch {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 65vw;
+  height: 10vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  margin-top: 1vh;
+  border: 2px solid black;
+  border-radius: 25px;
+}
+
+.inputSearch {
+  width: 55vw;
+  height: 5vh;
+  font-size: 1.2rem;
+}
+
+.material-symbols-sharp {
+  font-size: 24px; /* Ajuste o tamanho do ícone conforme necessário */
+  display: inline-block;
+  transform: scale(1.5); /* Ajuste o fator de escala conforme necessário */
+}
+
+.divShoItens {
+  align-items: center;
+  justify-content: space-around;
+  width: 65vw;
+  height: 45vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  margin-top: 1vh;
+  border: 2px solid black;
+  border-radius: 25px;
+  justify-items: top;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.divCard {
+  background-color: white;
+  width: 200px;
+  height: 120px;
+  margin-left: 10px;
+  margin-top: 10px;
+  border-radius: 20px;
+  border: 2px solid black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.iconesMaiores {
+  font-size: 44px; /* Ajuste o tamanho do ícone conforme necessário */
+  display: inline-block;
+  transform: scale(1.7); /* Ajuste o fator de escala conforme necessário */
+}
+
+.divNav {
+  background-color: black;
+  color: white;
+  width: 97%;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  height: 10%;
+  margin-left: 3%;
+  align-items: center;
+  justify-items: center;
+  border-radius: 20px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.divNavTitulo {
+  width: 80%;
+  margin-left: 45px;
+}
+
+.divNavBottoes {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.divCardFoto {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divCardNome {
+  width: 50%;
+  height: 100%;
+  border: 5px solid green;
+}
+
+a {
+  text-decoration: none;
+}
+
+.divProfile {
+  width: 30%;
+  margin-left: 25vw;
+  margin-top: 30px;
+  height: 500px;
+  border: 3px solid black;
+  border-radius: 30px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.divDadosPlayer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 70px;
+  margin-bottom: 15px;
+  width: 95%;
+  overflow: hidden;
+}
+
+.tableProfile {
+  width: 90%;
+}
+
+.divCardFotoProfile {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+td {
+  background-color: white;
+  line-height: 2.5rem;
+  opacity: 0.7;
+}
