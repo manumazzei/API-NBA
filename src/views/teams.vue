@@ -1,4 +1,5 @@
 <script>
+import nophoto from "../assets/teams/noimage.png";
 export default {
   data() {
     return {
@@ -31,6 +32,35 @@ export default {
         `https://www.balldontlie.io/api/v1/teams?page=${this.next}`
       );
     },
+    replaceByDefault(e) {
+      e.target.src = nophoto;
+    },
+    getImagePath(id) {
+      return `../src/assets/teams/${id}.png`;
+    },
+    fileExists(filename) {
+      console.log(filename);
+      // Cria um novo objeto de requisição
+      var http = new XMLHttpRequest();
+
+      // Define o método e a URL da requisição
+      http.open("HEAD", filename, false);
+
+      // Envia a requisição
+      http.send();
+
+      // Verifica o status da resposta
+      console.log(http.status);
+      if (http.status === 404) {
+        filename = nophoto;
+        http = new XMLHttpRequest();
+        http.open("HEAD", filename, false);
+        http.send();
+
+        return http.status !== 404;
+      }
+      return http.status !== 404;
+    },
   },
   computed: {},
   mounted() {
@@ -41,28 +71,38 @@ export default {
 
 <template>
   <main>
-    <h3 v-show="loading">carregando</h3>
-    <div class="div.tabela">
-      <table v-show="!loading">
-        <tr>
-          <th width="30%">Time</th>
-          <th width="30%">Divisão</th>
-          <th width="30%">Conferência</th>
-          <th width="30%">Detail</th>
-        </tr>
-        <tr v-for="team in teams" :key="team.full_name">
-          <td>{{ team.full_name }}</td>
-          <td>{{ team.division }}</td>
-          <td>{{ team.conference }}</td>
-          <td>
-            <RouterLink :to="`/team/${team.id}`">{{ team.id }}</RouterLink>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div id="button-Container">
-      <button @click="handlePrevious">previous</button>
-      <button @click="handleNext">next</button>
+    <div class="divGeral1">
+      <div class="divNav">
+        <div class="divNavTitulo">
+          <p class="pTituloItem">Teams</p>
+          <h3 v-show="loading">loading .....</h3>
+        </div>
+        <div class="divNavBottoes">
+          <span class="material-symbols-sharp" @click="handlePrevious">
+            arrow_circle_left
+          </span>
+          <span class="material-symbols-sharp" @click="handleNext">
+            arrow_circle_right
+          </span>
+        </div>
+      </div>
+      <div class="divShoTeams">
+        <div class="divCard" v-for="team in teams" :key="team.full_name">
+          <div class="divCardFoto">
+            <img
+              v-if="fileExists(getImagePath(team.id))"
+              :src="getImagePath(team.id)"
+              alt=""
+              width="65"
+              @error="replaceByDefault"
+            />
+          </div>
+          <RouterLink :to="`/team/${team.id}`">
+            {{ team.full_name }} {{ team.division }}
+            {{ team.conference }}
+          </RouterLink>
+        </div>
+      </div>
     </div>
   </main>
 </template>

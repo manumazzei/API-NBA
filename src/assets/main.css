@@ -286,3 +286,19 @@ td {
   line-height: 2.5rem;
   opacity: 0.7;
 }
+
+.divShoTeams {
+  align-items: center;
+  justify-content: space-around;
+  width: 65vw;
+  height: 59vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  margin-top: 1vh;
+  border: 2px solid black;
+  border-radius: 25px;
+  justify-items: top;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
