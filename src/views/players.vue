@@ -136,7 +136,6 @@ export default {
           <RouterLink :to="`/player/${player.id}`">
             {{ player.first_name }} {{ player.last_name }}
             {{ player.team.name }}
-            {{ player.id }}
           </RouterLink>
         </div>
       </div>
