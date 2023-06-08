@@ -61,10 +61,13 @@ export default {
       <div class="divNav">
         <div class="divNavTitulo">
           <p class="pTituloItem">{{ person.Name }}</p>
+          <h3 v-show="loading">loading .....</h3>
         </div>
         <div class="divNavBottoes">
           <RouterLink :to="`/players`"
-            ><span class="material-symbols-sharp"> undo </span></RouterLink
+            ><span class="material-symbols-sharp setaBranca">
+              undo
+            </span></RouterLink
           >
         </div>
       </div>
@@ -87,16 +90,10 @@ export default {
         </div>
       </div>
     </div>
-    <h3 v-show="loading">
-      <iframe
-        src="https://embed.lottiefiles.com/animation/21271"
-        style="pointer-events: none"
-      ></iframe>
-    </h3>
   </main>
 </template>
 <style scoped>
-a {
-  text-decoration: none;
+.setaBranca {
+  color: white;
 }
 </style>

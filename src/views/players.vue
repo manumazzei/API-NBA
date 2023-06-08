@@ -94,9 +94,6 @@ export default {
 <template>
   <main>
     <div class="divGeral1">
-      <h3 v-show="loading">
-        <iframe src="https://embed.lottiefiles.com/animation/4414"></iframe>
-      </h3>
       <div class="divSearch">
         <input
           type="search"
@@ -114,6 +111,7 @@ export default {
       <div class="divNav">
         <div class="divNavTitulo">
           <p class="pTituloItem">Players</p>
+          <h3 v-show="loading">loading .....</h3>
         </div>
         <div class="divNavBottoes">
           <span class="material-symbols-sharp" @click="handlePrevious">
