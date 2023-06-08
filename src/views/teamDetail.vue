@@ -71,6 +71,7 @@ export default {
           v-if="fileExists(getImagePath(id))"
           :src="getImagePath(id)"
           alt=""
+          width="200"
         />
         <img v-else src="../assets/teams/noimage.png" alt="" width="200" />
       </div>
