@@ -19,7 +19,6 @@ export default {
           this.teams = data.data;
           this.next = data.meta.next_page;
           this.previous = data.meta.previous;
-          console.log(data);
         });
     },
     handlePrevious() {
@@ -39,7 +38,6 @@ export default {
       return `/teams/${id}.png`;
     },
     fileExists(filename) {
-      console.log(filename);
       // Cria um novo objeto de requisição
       var http = new XMLHttpRequest();
 
@@ -50,7 +48,6 @@ export default {
       http.send();
 
       // Verifica o status da resposta
-      console.log(http.status);
       if (http.status === 404) {
         filename = nophoto;
         http = new XMLHttpRequest();

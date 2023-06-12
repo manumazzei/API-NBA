@@ -28,7 +28,6 @@ export default {
       return `/teams/${id}.png`;
     },
     fileExists(filename) {
-      console.log(filename);
       // Cria um novo objeto de requisição
       var http = new XMLHttpRequest();
 
@@ -39,7 +38,6 @@ export default {
       http.send();
 
       // Verifica o status da resposta
-      console.log(http.status);
       return http.status !== 404;
     },
   },

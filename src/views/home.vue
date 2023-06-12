@@ -19,7 +19,7 @@ import { RouterLink, RouterView } from "vue-router";
     </div>
     <div class="divGeralItem">
       <div class="divJogos">
-        <RouterLink to="/Players"
+        <RouterLink to="/Games"
           ><button class="btnAcesso">GAMES</button></RouterLink
         >
       </div>
