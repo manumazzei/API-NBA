@@ -444,4 +444,8 @@ td {
     height: 59vh;
     font-size: 1.2rem;
   }
+
+  h3 {
+    color: black;
+  }
 }
