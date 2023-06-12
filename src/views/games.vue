@@ -86,54 +86,56 @@ export default {
 
 <template>
   <main>
-    <div class="divNav">
-      <div class="divNavTitulo">
-        <p class="pTituloItem">LAST MATCHUPS</p>
-        <h3 v-show="loading">loading .....</h3>
+    <div class="divGeral1">
+      <div class="divNav">
+        <div class="divNavTitulo">
+          <p class="pTituloItem">LAST MATCHUPS</p>
+          <h3 v-show="loading">loading .....</h3>
+        </div>
+        <div class="divNavBottoes">
+          <span class="material-symbols-sharp" @click="handlePrevious">
+            arrow_circle_left
+          </span>
+          <span class="material-symbols-sharp" @click="handleNext">
+            arrow_circle_right
+          </span>
+        </div>
       </div>
-      <div class="divNavBottoes">
-        <span class="material-symbols-sharp" @click="handlePrevious">
-          arrow_circle_left
-        </span>
-        <span class="material-symbols-sharp" @click="handleNext">
-          arrow_circle_right
-        </span>
-      </div>
-    </div>
 
-    <div class="tabel">
-      <div v-for="game in parsedGames" :key="game.games">
-        <div class="cardgames">
-          <div class="house">
-            <div class="view">
-              <!-- Logo home -->
-              <img
-                v-if="fileExists(getImagePath(game.home_team.id))"
-                :src="getImagePath(game.home_team.id)"
-                alt=""
-                width="65"
-                @error="replaceByDefault"
-              />
+      <div class="divShoTeams">
+        <div v-for="game in parsedGames" :key="game.games">
+          <div class="cardgames">
+            <div class="house">
+              <div class="view">
+                <!-- Logo home -->
+                <img
+                  v-if="fileExists(getImagePath(game.home_team.id))"
+                  :src="getImagePath(game.home_team.id)"
+                  alt=""
+                  width="65"
+                  @error="replaceByDefault"
+                />
 
-              <div class="name">{{ game.home_team.abbreviation }}</div>
+                <div class="name">{{ game.home_team.abbreviation }}</div>
+              </div>
+
+              <div class="points">{{ game.home_team_score }}</div>
             </div>
+            <div class="status">{{ game.status }}</div>
+            <div class="visitor">
+              <div class="points">{{ game.visitor_team_score }}</div>
 
-            <div class="points">{{ game.home_team_score }}</div>
-          </div>
-          <div class="status">{{ game.status }}</div>
-          <div class="visitor">
-            <div class="points">{{ game.visitor_team_score }}</div>
-
-            <div class="view">
-              <!-- Logo visi -->
-              <img
-                v-if="fileExists(getImagePath(game.visitor_team.id))"
-                :src="getImagePath(game.visitor_team.id)"
-                alt=""
-                width="65"
-                @error="replaceByDefault"
-              />
-              <div class="name">{{ game.visitor_team.abbreviation }}</div>
+              <div class="view">
+                <!-- Logo visi -->
+                <img
+                  v-if="fileExists(getImagePath(game.visitor_team.id))"
+                  :src="getImagePath(game.visitor_team.id)"
+                  alt=""
+                  width="65"
+                  @error="replaceByDefault"
+                />
+                <div class="name">{{ game.visitor_team.abbreviation }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -166,15 +168,6 @@ h2 {
   height: 200px;
 }
 
-.tabel {
-  text-align: center;
-  width: 1200px;
-  height: 540px;
-  margin-left: 320px;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: auto;
-}
 .house {
   display: flex;
   width: 116px;
@@ -208,27 +201,5 @@ h2 {
   font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
   font-size: 25px;
-}
-.divNavBottoes {
-  width: 20%;
-  height: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.divNav {
-  background-color: black;
-  color: white;
-  width: 1200px;
-  font-weight: bolder;
-  font-size: 1.5rem;
-  height: 10%;
-  margin-left: 320px;
-  align-items: center;
-  justify-items: center;
-  border-radius: 20px;
-  display: flex;
-  margin-top: 20px;
 }
 </style>

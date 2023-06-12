@@ -87,7 +87,7 @@ body {
   height: 10vh;
   margin-left: 17vw;
   margin-right: 17vw;
-  margin-top: 9vh;
+  margin-top: 5vh;
   border: 2px solid black;
   border-radius: 25px;
   background-color: black;
@@ -156,6 +156,8 @@ body {
   width: 55vw;
   height: 5vh;
   font-size: 1.2rem;
+  border: 2px solid black;
+  border-radius: 30px;
 }
 
 .material-symbols-sharp {
@@ -299,6 +301,16 @@ td {
   border: 2px solid black;
   border-radius: 25px;
   justify-items: top;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.tabel {
+  text-align: center;
+  width: 1200px;
+  height: 540px;
+  margin-left: 50px;
   display: flex;
   flex-wrap: wrap;
   overflow: auto;
