@@ -108,8 +108,11 @@ export default {
       </div>
       <div class="divNav">
         <div class="divNavTitulo">
+
+
           <p class="pTituloItem">Players</p>
           
+
         </div>
         <div class="divNavBottoes">
           <span class="material-symbols-sharp" @click="handlePrevious">

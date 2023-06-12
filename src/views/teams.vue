@@ -73,7 +73,10 @@ export default {
     <div class="divGeral1">
       <div class="divNav">
         <div class="divNavTitulo">
+
+
           <p class="pTituloItem">Teams</p>
+
         </div>
         <div class="divNavBottoes">
           <span class="material-symbols-sharp" @click="handlePrevious">

@@ -20,11 +20,18 @@ import { RouterLink, RouterView } from "vue-router";
     <div class="divGeralItem">
       <div class="divJogos">
         <RouterLink to="/Games"
-          ><button class="btnAcesso">GAMES</button></RouterLink
+          ><button class="btnAcesso">LAST MATCHUPS</button></RouterLink
         >
       </div>
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+a {
+  text-decoration: none;
+}
+
+a:any-link {
+}
+</style>
