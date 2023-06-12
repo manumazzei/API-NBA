@@ -12,6 +12,7 @@ export default {
   },
   methods: {
     getGames(url) {
+      this.loading = true;
       fetch(url)
         .then((res) => res.json())
         .then((response) => {
@@ -19,6 +20,7 @@ export default {
           this.games = data;
           this.next = response.meta.next_page;
           this.previous = response.meta.previous;
+          this.loading = false;
         });
     },
     formatarData(date) {
@@ -90,7 +92,6 @@ export default {
       <div class="divNav">
         <div class="divNavTitulo">
           <p class="pTituloItem">LAST MATCHUPS</p>
-          <h3 v-show="loading">loading .....</h3>
         </div>
         <div class="divNavBottoes">
           <span class="material-symbols-sharp" @click="handlePrevious">
@@ -103,6 +104,7 @@ export default {
       </div>
 
       <div class="divShoTeams">
+        <h3 v-show="loading">loading .....</h3>
         <div v-for="game in parsedGames" :key="game.games">
           <div class="cardgames">
             <div class="house">
@@ -201,5 +203,9 @@ h2 {
   font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
   font-size: 25px;
+}
+
+h3{
+  color: white;
 }
 </style>

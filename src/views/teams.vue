@@ -12,6 +12,7 @@ export default {
   },
   methods: {
     getTeams(url) {
+      this.loading = true;
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
@@ -19,7 +20,7 @@ export default {
           this.teams = data.data;
           this.next = data.meta.next_page;
           this.previous = data.meta.previous;
-          console.log(data);
+          this.loading = false;
         });
     },
     handlePrevious() {
@@ -75,7 +76,6 @@ export default {
       <div class="divNav">
         <div class="divNavTitulo">
           <p class="pTituloItem">Teams</p>
-          <h3 v-show="loading">loading .....</h3>
         </div>
         <div class="divNavBottoes">
           <span class="material-symbols-sharp" @click="handlePrevious">
@@ -87,6 +87,7 @@ export default {
         </div>
       </div>
       <div class="divShoTeams">
+        <h3 v-show="loading">loading .....</h3>
         <div class="divCard" v-for="team in teams" :key="team.full_name">
           <div class="divCardFoto">
             <img
@@ -107,4 +108,8 @@ export default {
   </main>
 </template>
 
-<style></style>
+<style>
+h3{
+  color: white;
+}
+</style>
