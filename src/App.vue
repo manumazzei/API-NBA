@@ -15,18 +15,33 @@ import TeamView from "./views/teamDetail.vue";
     </div>
     <div class="divCabecalhoLink">
       <RouterLink to="/"
-        ><button class="btnAcessoCabecalho">HOME</button></RouterLink
+        ><button class="btnAcessoCabecalho">
+          <span class="material-symbols-sharp" title="home"> home </span>
+        </button></RouterLink
       >
       <RouterLink to="/Teams"
-        ><button class="btnAcessoCabecalho">TEAMS</button></RouterLink
+        ><button class="btnAcessoCabecalho">
+          <span class="material-symbols-sharp" title="teams"> groups </span>
+        </button></RouterLink
       >
       <RouterLink to="/Players"
-        ><button class="btnAcessoCabecalho">PLAYERS</button></RouterLink
+        ><button class="btnAcessoCabecalho">
+          <span class="material-symbols-sharp" title="players">
+            sports_handball
+          </span>
+        </button></RouterLink
       >
-      <RouterLink to="/Games"
-        ><button class="btnAcessoCabecalho">GAMES</button></RouterLink
+      <RouterLink to="/Games">
+        <span class="material-symbols-sharp meulink" title="last machups">
+          sports_basketball
+        </span></RouterLink
       >
     </div>
   </div>
   <RouterView />
 </template>
+<style scoped>
+.meulink {
+  color: white;
+}
+</style>

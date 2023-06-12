@@ -108,7 +108,7 @@ export default {
       </div>
       <div class="divNav">
         <div class="divNavTitulo">
-          <p class="pTituloItem">Players</p>
+          <p class="pTituloItem">PLAYERS</p>
           <h3 v-show="loading">loading .....</h3>
         </div>
         <div class="divNavBottoes">

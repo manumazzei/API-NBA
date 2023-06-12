@@ -71,7 +71,7 @@ export default {
     <div class="divGeral1">
       <div class="divNav">
         <div class="divNavTitulo">
-          <p class="pTituloItem">Teams</p>
+          <p class="pTituloItem">TEAMS</p>
           <h3 v-show="loading">loading .....</h3>
         </div>
         <div class="divNavBottoes">
