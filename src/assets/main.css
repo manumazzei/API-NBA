@@ -162,6 +162,7 @@ body {
   font-size: 24px; /* Ajuste o tamanho do ícone conforme necessário */
   display: inline-block;
   transform: scale(1.5); /* Ajuste o fator de escala conforme necessário */
+  cursor: pointer;
 }
 
 .divShoItens {

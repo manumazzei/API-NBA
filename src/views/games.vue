@@ -1,78 +1,142 @@
 <script>
+import nophoto from "../assets/teams/noimage.png";
 export default {
   data() {
     return {
       games: [],
       data: [],
+      loading: false,
+      next: null,
+      previous: null,
     };
   },
   methods: {
     getGames(url) {
       fetch(url)
         .then((res) => res.json())
-        .then((response) =>{
-          const {data,meta} = response;
+        .then((response) => {
+          const { data, meta } = response;
           this.games = data;
+          this.next = response.meta.next_page;
+          this.previous = response.meta.previous;
         });
     },
-
     formatarData(date) {
       const dataObjeto = new Date();
 
-      const dia = dataObjeto.getDate().toString().padStart(2,'0');
-      const mes = (dataObjeto.getMonth() + 1).toString().padStart(2,'0');
+      const dia = dataObjeto.getDate().toString().padStart(2, "0");
+      const mes = (dataObjeto.getMonth() + 1).toString().padStart(2, "0");
       const ano = dataObjeto.getFullYear();
-      const hora = dataObjeto.getHours().toString().padStart(2,'0');
-      const minuto = dataObjeto.getMinutes().toString().padStart(2,'0');
+      const hora = dataObjeto.getHours().toString().padStart(2, "0");
+      const minuto = dataObjeto.getMinutes().toString().padStart(2, "0");
 
       const dataFormatada = `${dia}/${mes}/${ano} - ${hora}:${minuto}`;
 
-      return dataFormatada
+      return dataFormatada;
     },
+    handlePrevious() {
+      this.getGames(
+        `https://www.balldontlie.io/api/v1/games?page=${this.previous}`
+      );
+    },
+    handleNext() {
+      console.log("a minha next é" + this.next);
+      this.getGames(
+        `https://www.balldontlie.io/api/v1/games?page=${this.next}`
+      );
+    },
+    replaceByDefault(e) {
+      e.target.src = nophoto;
+    },
+    getImagePath(id) {
+      return `../src/assets/teams/${id}.png`;
+    },
+    fileExists(filename) {
+      var http = new XMLHttpRequest();
 
-   
+      http.open("HEAD", filename, false);
+
+      http.send();
+
+      console.log(http.status);
+      if (http.status === 404) {
+        filename = nophoto;
+        http = new XMLHttpRequest();
+        http.open("HEAD", filename, false);
+        http.send();
+
+        return http.status !== 404;
+      }
+      return http.status !== 404;
+    },
   },
   computed: {
-    parsedGames(){
-      return this.games.map(el =>({
+    parsedGames() {
+      return this.games.map((el) => ({
         ...el,
-        date: this.formatarData(el.date)
-        
-      }))
-    }
+        date: this.formatarData(el.date),
+      }));
+    },
   },
   mounted() {
     this.getGames(`https://www.balldontlie.io/api/v1/games`);
-    
   },
 };
 </script>
 
 <template>
   <main>
-    <h2>LAST MATCHUPS</h2>
-    <div class="tabel">
-     
+    <div class="divNav">
+      <div class="divNavTitulo">
+        <p class="pTituloItem">LAST MATCHUPS</p>
+        <h3 v-show="loading">loading .....</h3>
+      </div>
+      <div class="divNavBottoes">
+        <span class="material-symbols-sharp" @click="handlePrevious">
+          arrow_circle_left
+        </span>
+        <span class="material-symbols-sharp" @click="handleNext">
+          arrow_circle_right
+        </span>
+      </div>
+    </div>
 
+    <div class="tabel">
       <div v-for="game in parsedGames" :key="game.games">
         <div class="cardgames">
-            <div class="house">
-                  <div class="view">Logo home
-                    <div class="name">{{ game.home_team.abbreviation }}</div>
-                  </div>
-                  
-                  <div class="points">{{ game.home_team_score }}</div>
-            </div>
-            <div class="status">{{ game.status}}</div>
-            <div class="visitor">
-                  <div class="points">{{ game.visitor_team_score}}</div>
+          <div class="house">
+            <div class="view">
+              <!-- Logo home -->
+              <img
+                v-if="fileExists(getImagePath(game.home_team.id))"
+                :src="getImagePath(game.home_team.id)"
+                alt=""
+                width="65"
+                @error="replaceByDefault"
+              />
 
-              <div class="view">Logo visi
+              <div class="name">{{ game.home_team.abbreviation }}</div>
+            </div>
+
+            <div class="points">{{ game.home_team_score }}</div>
+          </div>
+          <div class="status">{{ game.status }}</div>
+          <div class="visitor">
+            <div class="points">{{ game.visitor_team_score }}</div>
+
+            <div class="view">
+              <!-- Logo visi -->
+              <img
+                v-if="fileExists(getImagePath(game.visitor_team.id))"
+                :src="getImagePath(game.visitor_team.id)"
+                alt=""
+                width="65"
+                @error="replaceByDefault"
+              />
               <div class="name">{{ game.visitor_team.abbreviation }}</div>
-              </div>
             </div>
-       </div>
-
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -91,7 +155,7 @@ h2 {
   border-radius: 30px;
   height: 40px;
 }
-.cardgames{
+.cardgames {
   display: flex;
   align-items: center;
   margin: 2rem;
@@ -102,7 +166,7 @@ h2 {
   height: 200px;
 }
 
-.tabel{
+.tabel {
   text-align: center;
   width: 1200px;
   height: 540px;
@@ -111,38 +175,60 @@ h2 {
   flex-wrap: wrap;
   overflow: auto;
 }
-.house{
+.house {
   display: flex;
   width: 116px;
   height: 200px;
 }
-.status{
+.status {
   display: block;
   width: 80px;
   height: 200px;
   text-align: center;
   padding-top: 10rem;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 }
-.visitor{
+.visitor {
   display: flex;
   width: 116px;
   height: 200px;
 }
-.view{
+.view {
   width: 60px;
   padding-top: 4rem;
 }
 
-.name{
+.name {
   padding-top: 1rem;
   text-align: center;
 }
-.points{
+.points {
   padding-top: 5rem;
   width: 50px;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
   font-size: 25px;
+}
+.divNavBottoes {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.divNav {
+  background-color: black;
+  color: white;
+  width: 1200px;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  height: 10%;
+  margin-left: 320px;
+  align-items: center;
+  justify-items: center;
+  border-radius: 20px;
+  display: flex;
+  margin-top: 20px;
 }
 </style>
