@@ -40,7 +40,6 @@ export default {
       );
     },
     handleNext() {
-      console.log("a minha next é" + this.next);
       this.getGames(
         `https://www.balldontlie.io/api/v1/games?page=${this.next}`
       );
@@ -58,7 +57,6 @@ export default {
 
       http.send();
 
-      console.log(http.status);
       if (http.status === 404) {
         filename = nophoto;
         http = new XMLHttpRequest();
