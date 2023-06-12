@@ -25,7 +25,7 @@ export default {
       e.target.src = nophoto;
     },
     getImagePath(id) {
-      return `../src/assets/teams/${id}.png`;
+      return `/teams/${id}.png`;
     },
     fileExists(filename) {
       console.log(filename);

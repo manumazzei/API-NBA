@@ -31,7 +31,7 @@ export default {
       e.target.src = nophoto;
     },
     getImagePath(id) {
-      return `../src/assets/players/${id}.png`;
+      return `/players/${id}.png`;
     },
     fileExists(filename) {
       console.log(filename);
