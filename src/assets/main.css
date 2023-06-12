@@ -337,6 +337,7 @@ td {
     border: 2px solid black;
     border-radius: 25px;
     background-color: black;
+    color: black;
   }
 
   .divCabecalhoLogo {
@@ -445,7 +446,7 @@ td {
     font-size: 1.2rem;
   }
 
-  h3 {
+  .loadingPreto {
     color: black;
   }
 }

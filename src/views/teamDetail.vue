@@ -9,6 +9,7 @@ export default {
   },
   methods: {
     async getfullTeam(url) {
+      this.loading = true;
       const res = await fetch(url);
       const data = await res.json();
       const { full_name, city, abbreviation, conference, division } = data;
@@ -20,6 +21,7 @@ export default {
         Conference: conference,
         Division: division,
       };
+      this.loading = false;
     },
     replaceByDefault(e) {
       e.target.src = nophoto;
@@ -53,7 +55,6 @@ export default {
     <div class="divNav">
       <div class="divNavTitulo">
         <p class="pTituloItem">{{ fullTeam.Name }}</p>
-        <h3 v-show="loading">loading .....</h3>
       </div>
       <div class="divNavBottoes">
         <RouterLink :to="`/teams`"
@@ -74,6 +75,7 @@ export default {
         <img v-else src="../assets/teams/noimage.png" alt="" width="200" />
       </div>
       <div class="divDadosPlayer">
+        <h3 v-show="loading" class="loadingPreto">loading .....</h3>
         <table v-show="!loading" class="tableProfile">
           <tr v-for="(value, label) in fullTeam" :key="label">
             <td>{{ label }}</td>

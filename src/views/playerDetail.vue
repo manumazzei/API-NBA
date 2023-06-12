@@ -59,7 +59,6 @@ export default {
       <div class="divNav">
         <div class="divNavTitulo">
           <p class="pTituloItem">{{ person.Name }}</p>
-          <h3 v-show="loading">loading .....</h3>
         </div>
         <div class="divNavBottoes">
           <RouterLink :to="`/players`"
@@ -69,6 +68,7 @@ export default {
           >
         </div>
       </div>
+
       <div class="divProfile">
         <div class="divCardFotoProfile">
           <img
@@ -79,6 +79,7 @@ export default {
           <img v-else src="../assets/players/nophoto.png" alt="" width="200" />
         </div>
         <div class="divDadosPlayer">
+          <h3 v-show="loading" class="loadingPreto">loading .....</h3>
           <table v-show="!loading" class="tableProfile">
             <tr v-for="(value, label) in person" :key="label">
               <td>{{ label }}</td>

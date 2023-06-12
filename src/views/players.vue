@@ -108,11 +108,7 @@ export default {
       </div>
       <div class="divNav">
         <div class="divNavTitulo">
-
-
           <p class="pTituloItem">Players</p>
-          
-
         </div>
         <div class="divNavBottoes">
           <span class="material-symbols-sharp" @click="handlePrevious">
@@ -124,7 +120,7 @@ export default {
         </div>
       </div>
       <div class="divShoItens">
-        <h3 v-show="loading">Loading .....</h3>
+        <h3 v-show="loading" class="loadingPreto">loading .....</h3>
         <div class="divCard" v-for="player in people" :key="player.name">
           <div class="divCardFoto">
             <img
@@ -179,7 +175,7 @@ a {
   text-decoration: none;
 }
 
-h3{
+h3 {
   color: white;
 }
 </style>

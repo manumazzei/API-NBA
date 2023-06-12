@@ -102,7 +102,7 @@ export default {
       </div>
 
       <div class="divShoTeams">
-        <h3 v-show="loading">loading .....</h3>
+        <h3 v-show="loading" class="loadingPreto">loading .....</h3>
         <div v-for="game in parsedGames" :key="game.games">
           <div class="cardgames">
             <div class="house">
@@ -201,9 +201,5 @@ h2 {
   font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
   font-size: 25px;
-}
-
-h3{
-  color: white;
 }
 </style>

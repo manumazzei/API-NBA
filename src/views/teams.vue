@@ -73,10 +73,7 @@ export default {
     <div class="divGeral1">
       <div class="divNav">
         <div class="divNavTitulo">
-
-
           <p class="pTituloItem">Teams</p>
-
         </div>
         <div class="divNavBottoes">
           <span class="material-symbols-sharp" @click="handlePrevious">
@@ -88,7 +85,7 @@ export default {
         </div>
       </div>
       <div class="divShoTeams">
-        <h3 v-show="loading">loading .....</h3>
+        <h3 v-show="loading" class="loadingPreto">loading .....</h3>
         <div class="divCard" v-for="team in teams" :key="team.full_name">
           <div class="divCardFoto">
             <img
@@ -110,7 +107,7 @@ export default {
 </template>
 
 <style>
-h3{
+h3 {
   color: white;
 }
 </style>
