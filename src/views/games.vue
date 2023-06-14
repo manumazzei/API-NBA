@@ -1,6 +1,8 @@
 <script>
 import nophoto from "../assets/teams/noimage.png";
+import imageMixin from "@/mixins/image";
 export default {
+  mixins: [imageMixin],
   data() {
     return {
       games: [],
@@ -46,29 +48,6 @@ export default {
         `https://www.balldontlie.io/api/v1/games?page=${this.next}`
       );
     },
-    replaceByDefault(e) {
-      e.target.src = nophoto;
-    },
-    getImagePath(id) {
-      return `/teams/${id}.png`;
-    },
-    fileExists(filename) {
-      var http = new XMLHttpRequest();
-
-      http.open("HEAD", filename, false);
-
-      http.send();
-
-      if (http.status === 404) {
-        filename = nophoto;
-        http = new XMLHttpRequest();
-        http.open("HEAD", filename, false);
-        http.send();
-
-        return http.status !== 404;
-      }
-      return http.status !== 404;
-    },
   },
   computed: {
     parsedGames() {
@@ -107,13 +86,11 @@ export default {
           <div class="cardgames">
             <div class="house">
               <div class="view">
-                <!-- Logo home -->
+                <Image path="teams" :id="game.home_team.id"/>
                 <img
-                  v-if="fileExists(getImagePath(game.home_team.id))"
-                  :src="getImagePath(game.home_team.id)"
-                  alt=""
-                  width="65"
-                  @error="replaceByDefault"
+                :src="getImagePath('teams', game.homr_team.id)"
+                width="65"
+                @error="replaceByDefault"
                 />
 
                 <div class="name">{{ game.home_team.abbreviation }}</div>
@@ -126,11 +103,8 @@ export default {
               <div class="points">{{ game.visitor_team_score }}</div>
 
               <div class="view">
-                <!-- Logo visi -->
                 <img
-                  v-if="fileExists(getImagePath(game.visitor_team.id))"
-                  :src="getImagePath(game.visitor_team.id)"
-                  alt=""
+                  :src="getImagePath('teams', game.visitor_team.id)"
                   width="65"
                   @error="replaceByDefault"
                 />

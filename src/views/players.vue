@@ -1,7 +1,8 @@
 <script>
 import { RouterLink } from "vue-router";
-import nophoto from "../assets/players/nophoto.png";
+import imageMIxin from "@/mixins/image";
 export default {
+  mixins: [imageMIxin],
   data() {
     return {
       people: [],
@@ -21,30 +22,15 @@ export default {
           this.next = players.meta.next_page;
           this.previous = players.meta.previous;
           this.loading = false;
+          this.resetScroll();
         });
     },
-    handleNext() {
-      if (this.searchWord == "") {
-        this.getPeople(
-          `https://www.balldontlie.io/api/v1/players?page=${this.next}`
-        );
-      } else {
-        this.getPeople(
-          `https://www.balldontlie.io/api/v1/players?page=${this.next}&search=${this.searchWord}`
-        );
-      }
-    },
-    handlePrevious() {
-      if (this.searchWord == "") {
-        this.getPeople(
-          `https://www.balldontlie.io/api/v1/players?page=${this.previous}`
-        );
-      } else {
-        this.getPeople(
-          `https://www.balldontlie.io/api/v1/players?page=${this.previous}&search=${this.searchWord}`
-        );
-      }
-    },
+   handlePaginate(action) {
+    this.getPeople(
+      `https://www.balldontlie.io/api/v1/players?page=${action === "next" ? this.next : this.previous} &search=${this.searchWord}`
+    );
+   },
+
     searchPlayers() {
       this.getPeople(
         `https://www.balldontlie.io/api/v1/players?search=${this.searchWord}`
@@ -54,33 +40,10 @@ export default {
       this.searchWord = "";
       this.getPeople(`https://www.balldontlie.io/api/v1/players`);
     },
-    replaceByDefault(e) {
-      e.target.src = nophoto;
-    },
-    getImagePath(id) {
-      return `/players/${id}.png`;
-    },
-    fileExists(filename) {
-      // Cria um novo objeto de requisição
-      var http = new XMLHttpRequest();
-
-      // Define o método e a URL da requisição
-      http.open("HEAD", filename, false);
-
-      // Envia a requisição
-      http.send();
-
-      // Verifica o status da resposta
-      if (http.status === 404) {
-        filename = nophoto;
-        http = new XMLHttpRequest();
-        http.open("HEAD", filename, false);
-        http.send();
-
-        return http.status !== 404;
-      }
-      return http.status !== 404;
-    },
+   resetScroll() {
+    const lista = document.querySelector(".divShoItens");
+    lista.scroll(0,0);
+   },
   },
 
   mounted() {
@@ -111,21 +74,20 @@ export default {
           <p class="pTituloItem">Players</p>
         </div>
         <div class="divNavBottoes">
-          <span class="material-symbols-sharp" @click="handlePrevious">
+          <span class="material-symbols-sharp" @click="handlePaginate('previous')">
             arrow_circle_left
           </span>
-          <span class="material-symbols-sharp" @click="handleNext">
+          <span class="material-symbols-sharp" @click="handlePaginate('next')">
             arrow_circle_right
           </span>
         </div>
       </div>
       <div class="divShoItens">
-        <h3 v-show="loading" class="loadingPreto">loading .....</h3>
-        <div class="divCard" v-for="player in people" :key="player.name">
+        <h3 v-if="loading" class="loadingPreto">loading .....</h3>
+        <div v-else class="divCard" v-for="player in people" :key="player.name">
           <div class="divCardFoto">
             <img
-              v-if="fileExists(getImagePath(player.id))"
-              :src="getImagePath(player.id)"
+              :src="getImagePath('players',player.id)"
               alt=""
               width="65"
               @error="replaceByDefault"

@@ -1,6 +1,8 @@
 <script>
 import nophoto from "../assets/teams/noimage.png";
+import imageMixin from "@/mixins/image";
 export default {
+  mixins: [imageMixin],
   data() {
     return {
       teams: {},
@@ -15,11 +17,12 @@ export default {
       this.loading = true;
       fetch(url)
         .then((res) => res.json())
-        .then((data) => {
-          const { name, full_name, division } = data;
-          this.teams = data.data;
-          this.next = data.meta.next_page;
-          this.previous = data.meta.previous;
+        .then((response) => {
+          const { data, meta} = response;
+          const {previous, next_page} = meta;
+          this.teams = data;
+          this.next = next_page;
+          this.previous = previous;
           this.loading = false;
         });
     },
@@ -32,33 +35,6 @@ export default {
       this.getTeams(
         `https://www.balldontlie.io/api/v1/teams?page=${this.next}`
       );
-    },
-    replaceByDefault(e) {
-      e.target.src = nophoto;
-    },
-    getImagePath(id) {
-      return `/teams/${id}.png`;
-    },
-    fileExists(filename) {
-      // Cria um novo objeto de requisição
-      var http = new XMLHttpRequest();
-
-      // Define o método e a URL da requisição
-      http.open("HEAD", filename, false);
-
-      // Envia a requisição
-      http.send();
-
-      // Verifica o status da resposta
-      if (http.status === 404) {
-        filename = nophoto;
-        http = new XMLHttpRequest();
-        http.open("HEAD", filename, false);
-        http.send();
-
-        return http.status !== 404;
-      }
-      return http.status !== 404;
     },
   },
   computed: {},
@@ -89,9 +65,7 @@ export default {
         <div class="divCard" v-for="team in teams" :key="team.full_name">
           <div class="divCardFoto">
             <img
-              v-if="fileExists(getImagePath(team.id))"
-              :src="getImagePath(team.id)"
-              alt=""
+              :src="getImagePath('teams', team.id)"
               width="65"
               @error="replaceByDefault"
             />
